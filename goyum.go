@@ -48,13 +48,15 @@ func NewOption() (option *Option) {
 func (option *Option) ParseArguments() (err error) {
 	flag.Parse()
 
-	if flag.NArg() < 2 {
+	if flag.NArg() < 1 {
 		err = fmt.Errorf("Less arguments")
 		return
 	}
 
 	option.Mode = OperationMode(flag.Arg(0))
-	option.PackageNames = flag.Args()[1:]
+	if flag.NArg() > 1 {
+		option.PackageNames = flag.Args()[1:]
+	}
 
 	return
 }
